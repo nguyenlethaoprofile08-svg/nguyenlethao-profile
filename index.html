@@ -3,244 +3,411 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nguyễn Lê Thảo | Profile Cá Nhân</title>
+  <title>Nguyễn Lê Thảo | Liquid Glass Profile</title>
   <meta name="description" content="Trang profile cá nhân Nguyễn Lê Thảo - Marketing & Content Creator">
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: { sans: ['Inter', 'Quicksand', 'sans-serif'] },
           colors: {
-            primary: {
-              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
-              300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
-              600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
-            },
-            dark: { bg: '#0f172a', card: '#1e293b', text: '#e2e8f0' },
+            glass: 'rgba(255, 255, 255, 0.45)',
+            'glass-dark': 'rgba(20, 25, 40, 0.55)',
           },
           boxShadow: {
-            soft: '0 4px 20px rgba(0,0,0,0.06)',
-            glow: '0 0 20px rgba(59, 130, 246, 0.35)',
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
+            'glass-dark': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+            'glow': '0 0 20px rgba(59, 130, 246, 0.4)',
           },
-        },
-      },
-    };
+          backdropBlur: { 'xs': '2px' }
+        }
+      }
+    }
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/otpauth@9.1.2/dist/otpauth.min.js"></script>
 
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .card { transition: transform .3s ease, box-shadow .3s ease; }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 0 20px rgba(59,130,246,0.25); }
-    .icon-badge { display:flex; align-items:center; justify-content:center; width:3rem; height:3rem; border-radius:9999px; flex-shrink:0; }
+    /* Nền Gradient Mesh Liquid */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #eff6ff;
+      background-image: 
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,0.2) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(240,100%,70%,0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(340,100%,76%,0.15) 0px, transparent 50%);
+      background-attachment: fixed;
+      transition: background-color 0.3s ease;
+    }
+    .dark body {
+      background-color: #0f172a;
+      background-image: 
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,0.05) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,0.05) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(240,100%,70%,0.05) 0px, transparent 50%);
+    }
+
+    /* Hiệu ứng Liquid Glass */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      transition: all 0.3s ease;
+    }
+    .dark .glass-panel {
+      background: rgba(20, 25, 40, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .glass-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.2));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .dark .glass-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .glass-btn:active { transform: scale(0.95); }
+
+    /* Hiệu ứng icon */
+    .icon-badge {
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 9999px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover .icon-badge { transform: scale(1.1) rotate(5deg); }
+
+    /* Ẩn Modal */
+    .hidden-modal { opacity: 0; pointer-events: none; }
+    .show-modal { opacity: 1; pointer-events: auto; }
   </style>
 </head>
 
-<body class="bg-primary-50 text-gray-800 dark:bg-dark-bg dark:text-dark-text transition-colors duration-300">
+<body class="text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
 
-  <header class="sticky top-0 z-50 border-b border-primary-100 bg-primary-50/80 backdrop-blur-md dark:border-primary-900 dark:bg-dark-bg/80">
-    <div class="container mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-      <h1 class="text-xl font-bold text-primary-700 dark:text-primary-300">
-        Thảo<span class="text-primary-500">.Profile</span>
-      </h1>
-      <button id="themeToggle" aria-label="Chuyển chế độ Sáng/Tối"
-        class="rounded-full p-2 text-gray-500 hover:bg-primary-100 dark:text-gray-400 dark:hover:bg-dark-card transition">
-        <i data-lucide="sun" class="h-5 w-5 block dark:hidden"></i>
-        <i data-lucide="moon" class="h-5 w-5 hidden dark:block"></i>
+  <!-- HEADER (Liquid Glass) -->
+  <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-lg z-50 rounded-2xl glass-panel px-4 py-3 flex justify-between items-center">
+    <!-- Bấm 5 lần vào Logo để mở ADMIN -->
+    <div id="adminTrigger" class="flex items-center gap-2 cursor-pointer select-none">
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg">T</div>
+      <h1 class="text-lg font-bold tracking-tight">Thảo.Profile</h1>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <button id="themeToggle" class="p-2 rounded-full hover:bg-white/20 dark:hover:bg-black/20 transition">
+        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
       </button>
     </div>
   </header>
 
-  <main class="container mx-auto max-w-5xl px-4 py-12">
+  <main class="container mx-auto max-w-4xl px-4 pt-28 pb-24">
 
-    <section class="mb-20 text-center">
-      <div class="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-primary-400 to-primary-600 text-5xl font-bold text-white shadow-glow">
-        T
+    <!-- SECTION 1: PROFILE HERO -->
+    <section class="text-center mb-16">
+      <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-blue-400 via-indigo-400 to-purple-400 shadow-glow">
+        <div class="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center overflow-hidden border-4 border-white dark:border-gray-800">
+          <!-- Thay link ảnh của bạn vào đây -->
+          <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Thao&backgroundColor=b6e3f4" alt="Avatar" class="w-full h-full object-cover">
+        </div>
       </div>
-      <h2 class="mb-2 text-4xl font-bold text-gray-900 dark:text-white">Nguyễn Lê Thảo</h2>
-      <p class="mb-6 text-lg text-gray-600 dark:text-gray-300">Chuyên viên Marketing & Phát triển nội dung số</p>
-      <p class="mx-auto mb-8 max-w-2xl text-gray-500 dark:text-gray-400">
-        Chào mừng bạn đến với không gian cá nhân của mình. Nơi chia sẻ về các dự án, dịch vụ và những công cụ hữu ích giúp công việc trở nên dễ dàng hơn.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#contact" class="inline-flex items-center rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-3 font-semibold text-white shadow-soft transition-all duration-300 hover:from-primary-600 hover:to-primary-700 hover:shadow-glow active:scale-95">
-          <i data-lucide="mail" class="mr-2 h-5 w-5"></i> Liên hệ ngay
+      <h2 class="text-3xl font-extrabold mb-2 font-sans">Nguyễn Lê Thảo</h2>
+      <p class="text-blue-600 dark:text-blue-400 font-medium mb-4">Chuyên viên Marketing & Content Creator</p>
+      
+      <div class="flex justify-center gap-3 mt-6">
+        <a href="#contact" class="glass-btn px-6 py-2.5 rounded-2xl font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-2">
+          <i data-lucide="mail" class="w-4 h-4"></i> Liên hệ
         </a>
-        <a href="#services" class="inline-flex items-center rounded-xl border border-primary-200 bg-white px-6 py-3 font-semibold text-primary-600 shadow-soft transition-all duration-300 hover:bg-primary-50 hover:shadow-glow dark:border-primary-700 dark:bg-dark-card dark:text-primary-300">
-          <i data-lucide="briefcase" class="mr-2 h-5 w-5"></i> Xem dịch vụ
+        <a href="#services" class="glass-btn px-6 py-2.5 rounded-2xl font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-2">
+          <i data-lucide="briefcase" class="w-4 h-4"></i> Dịch vụ
         </a>
       </div>
     </section>
 
-    <section id="services" class="mb-20 scroll-mt-20">
-      <div class="mb-12 text-center">
-        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Sản phẩm & Dịch vụ</h3>
-        <p class="text-gray-600 dark:text-gray-400">Những giải pháp giúp bạn phát triển thương hiệu và tối ưu công việc.</p>
+    <!-- SECTION 2: DỊCH VỤ (Render từ JS) -->
+    <section id="services" class="mb-16 scroll-mt-24">
+      <div class="flex items-center gap-3 mb-6">
+        <i data-lucide="sparkles" class="w-6 h-6 text-blue-500"></i>
+        <h3 class="text-2xl font-bold">Sản phẩm & Dịch vụ</h3>
       </div>
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
-            <i data-lucide="sparkles" class="h-6 w-6"></i>
+      <div id="service-list" class="grid gap-4 md:grid-cols-2">
+        <!-- Dữ liệu sẽ được JS đổ vào đây -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: TIỆN ÍCH (API THẬT) -->
+    <section id="utilities" class="mb-16 scroll-mt-24">
+      <div class="flex items-center gap-3 mb-6">
+        <i data-lucide="zap" class="w-6 h-6 text-yellow-500"></i>
+        <h3 class="text-2xl font-bold">Công cụ Tiện ích</h3>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Check IP -->
+        <div class="card glass-panel rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-glow" onclick="checkIP()">
+          <div class="icon-badge w-12 h-12 bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400 mb-3">
+            <i data-lucide="globe" class="w-6 h-6"></i>
           </div>
-          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Quản lý Fanpage</h4>
-          <p class="text-gray-600 dark:text-gray-400">Xây dựng nội dung, lên lịch đăng bài và tương tác với khách hàng để tăng độ phủ thương hiệu.</p>
+          <span class="font-semibold text-sm">Check IP</span>
+          <span id="ip-result" class="text-xs text-gray-500 mt-1">Bấm để xem</span>
         </div>
-        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
-            <i data-lucide="layout-template" class="h-6 w-6"></i>
+
+        <!-- Thời tiết -->
+        <div class="card glass-panel rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-glow" onclick="getWeather()">
+          <div class="icon-badge w-12 h-12 bg-orange-100 text-orange-600 dark:bg-orange-900/50 dark:text-orange-400 mb-3">
+            <i data-lucide="cloud-sun" class="w-6 h-6"></i>
           </div>
-          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Thiết kế Landing Page</h4>
-          <p class="text-gray-600 dark:text-gray-400">Tạo các trang đích chuyên nghiệp, tối ưu chuyển đổi cho chiến dịch quảng cáo của bạn.</p>
+          <span class="font-semibold text-sm">Thời tiết</span>
+          <span id="weather-result" class="text-xs text-gray-500 mt-1">Hà Nội</span>
         </div>
-        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
-            <i data-lucide="zap" class="h-6 w-6"></i>
+
+        <!-- Tốc độ mạng -->
+        <div class="card glass-panel rounded-3xl p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-glow" onclick="testSpeed()">
+          <div class="icon-badge w-12 h-12 bg-green-100 text-green-600 dark:bg-green-900/50 dark:text-green-400 mb-3">
+            <i data-lucide="activity" class="w-6 h-6"></i>
           </div>
-          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Tư vấn Chiến lược Nội dung</h4>
-          <p class="text-gray-600 dark:text-gray-400">Phân tích và xây dựng kế hoạch nội dung dài hạn, phù hợp với mục tiêu kinh doanh.</p>
+          <span class="font-semibold text-sm">Tốc độ mạng</span>
+          <span id="speed-result" class="text-xs text-gray-500 mt-1">Bấm để test</span>
         </div>
       </div>
     </section>
 
-    <section id="utilities" class="mb-20 scroll-mt-20">
-      <div class="mb-12 text-center">
-        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Công cụ Tiện ích</h3>
-        <p class="text-gray-600 dark:text-gray-400">Các công cụ nhỏ gọn, hữu ích được tích hợp ngay trên trang.</p>
+    <!-- SECTION 4: LIÊN HỆ -->
+    <section id="contact" class="scroll-mt-24">
+      <div class="flex items-center gap-3 mb-6">
+        <i data-lucide="message-circle" class="w-6 h-6 text-purple-500"></i>
+        <h3 class="text-2xl font-bold">Kết nối</h3>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
-          <i data-lucide="globe" class="mb-3 h-8 w-8 text-gray-400"></i>
-          <span class="font-medium text-gray-700 dark:text-gray-300">Check IP</span>
-          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
-        </div>
-        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
-          <i data-lucide="cloud-sun" class="mb-3 h-8 w-8 text-gray-400"></i>
-          <span class="font-medium text-gray-700 dark:text-gray-300">Dự báo Thời tiết</span>
-          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
-        </div>
-        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
-          <i data-lucide="shield-check" class="mb-3 h-8 w-8 text-gray-400"></i>
-          <span class="font-medium text-gray-700 dark:text-gray-300">Mã 2FA</span>
-          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
-        </div>
-        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
-          <i data-lucide="fuel" class="mb-3 h-8 w-8 text-gray-400"></i>
-          <span class="font-medium text-gray-700 dark:text-gray-300">Giá Xăng Dầu</span>
-          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="scroll-mt-20">
-      <div class="mb-12 text-center">
-        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Kết nối với mình</h3>
-        <p class="text-gray-600 dark:text-gray-400">Bạn có dự án cần hợp tác? Hãy liên hệ qua các kênh dưới đây.</p>
-      </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-        <a href="https://facebook.com/nguyenlethaoitprofile08" target="_blank" rel="noopener"
-          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-            </svg>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="https://facebook.com/nguyenlethaoitprofile08" target="_blank" class="glass-panel rounded-2xl p-4 flex items-center gap-3 hover:scale-[1.02] transition">
+          <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </div>
-          <div class="min-w-0">
-            <p class="font-semibold text-gray-900 dark:text-white">Facebook</p>
-            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@nguyenlethaoitprofile08</p>
-          </div>
+          <div class="overflow-hidden"><p class="font-semibold text-sm">Facebook</p><p class="text-xs text-gray-500 truncate">@nguyenlethaoitprofile08</p></div>
         </a>
-
-        <a href="https://t.me/usertaiwan8686" target="_blank" rel="noopener"
-          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400">
-            <i data-lucide="send" class="h-5 w-5"></i>
-          </div>
-          <div class="min-w-0">
-            <p class="font-semibold text-gray-900 dark:text-white">Telegram</p>
-            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@usertaiwan8686</p>
-          </div>
+        <a href="https://t.me/usertaiwan8686" target="_blank" class="glass-panel rounded-2xl p-4 flex items-center gap-3 hover:scale-[1.02] transition">
+          <div class="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900 flex items-center justify-center text-sky-600 dark:text-sky-400"><i data-lucide="send" class="w-5 h-5"></i></div>
+          <div class="overflow-hidden"><p class="font-semibold text-sm">Telegram</p><p class="text-xs text-gray-500 truncate">@usertaiwan8686</p></div>
         </a>
-
-        <a href="mailto:nguyenlethao.profile08@gmail.com"
-          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge bg-red-100 text-red-600 dark:bg-red-900/50 dark:text-red-400">
-            <i data-lucide="mail" class="h-5 w-5"></i>
-          </div>
-          <div class="min-w-0">
-            <p class="font-semibold text-gray-900 dark:text-white">Email</p>
-            <p class="truncate text-sm text-gray-500 dark:text-gray-400">nguyenlethao.profile08@gmail.com</p>
-          </div>
+        <a href="mailto:nguyenlethao.profile08@gmail.com" class="glass-panel rounded-2xl p-4 flex items-center gap-3 hover:scale-[1.02] transition">
+          <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-400"><i data-lucide="mail" class="w-5 h-5"></i></div>
+          <div class="overflow-hidden"><p class="font-semibold text-sm">Email</p><p class="text-xs text-gray-500 truncate">nguyenlethao.profile08...</p></div>
         </a>
-
-        <a href="tel:+84898666218"
-          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
-          <div class="icon-badge bg-green-100 text-green-600 dark:bg-green-900/50 dark:text-green-400">
-            <i data-lucide="phone" class="h-5 w-5"></i>
-          </div>
-          <div class="min-w-0">
-            <p class="font-semibold text-gray-900 dark:text-white">Zalo / Call</p>
-            <p class="truncate text-sm text-gray-500 dark:text-gray-400">+84.898.666.218</p>
-          </div>
-        </a>
-
-        <button onclick="copyDiscord()"
-          class="card flex w-full items-center gap-4 rounded-2xl bg-white p-4 text-left shadow-soft dark:bg-dark-card">
-          <div class="icon-badge bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400">
-            <i data-lucide="message-circle" class="h-5 w-5"></i>
-          </div>
-          <div class="min-w-0">
-            <p class="font-semibold text-gray-900 dark:text-white">Discord</p>
-            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@nguyenlethaouser08 · nhấn để copy</p>
-          </div>
-        </button>
-
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-primary-100 py-8 text-center text-sm text-gray-500 dark:border-primary-900 dark:text-gray-400">
-    <p>© <span id="year"></span> Nguyễn Lê Thảo. All rights reserved.</p>
-  </footer>
+  <!-- ========================================== -->
+  <!-- ADMIN PANEL (Giao diện ẩn) -->
+  <!-- ========================================== -->
+  <div id="adminPanel" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden-modal transition-opacity duration-300 flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-md rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="toggleAdmin()" class="absolute top-4 right-4 p-2 bg-gray-200/50 dark:bg-gray-700/50 rounded-full hover:bg-red-500 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      
+      <h3 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="shield-check" class="text-blue-500"></i> Quản trị viên</h3>
+      
+      <!-- Form thêm sản phẩm -->
+      <form id="productForm" class="space-y-3 mb-6">
+        <input type="hidden" id="productId">
+        <div>
+          <label class="text-xs font-semibold text-gray-500">Tên dịch vụ / Sản phẩm</label>
+          <input type="text" id="pName" required class="w-full px-4 py-2 mt-1 rounded-xl bg-white/50 dark:bg-black/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-500">Giá (VNĐ)</label>
+          <input type="text" id="pPrice" required class="w-full px-4 py-2 mt-1 rounded-xl bg-white/50 dark:bg-black/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-500">Mô tả ngắn</label>
+          <textarea id="pDesc" required rows="2" class="w-full px-4 py-2 mt-1 rounded-xl bg-white/50 dark:bg-black/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold shadow-lg hover:bg-blue-700 transition flex justify-center gap-2">
+          <i data-lucide="plus-circle" class="w-5 h-5"></i> Lưu Dịch Vụ
+        </button>
+      </form>
+
+      <!-- Danh sách sản phẩm trong Admin -->
+      <h4 class="font-bold mb-2">Danh sách hiện tại:</h4>
+      <div id="admin-product-list" class="space-y-2"></div>
+      
+      <p class="text-xs text-center text-gray-400 mt-4">* Dữ liệu đang lưu tạm trên máy của bạn. Để lưu vĩnh viễn cần kết nối Database.</p>
+    </div>
+  </div>
 
   <script>
+    // 1. KHỞI TẠO ICON VÀ THEME
     lucide.createIcons();
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    try {
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+      }
+    } catch(e) {}
+    
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      root.classList.toggle('dark');
+      try { localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch(e){}
+    });
 
-    function copyDiscord() {
-      const text = '@nguyenlethaouser08';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          alert('Đã copy Discord: ' + text);
-        }).catch(() => {
-          prompt('Copy thủ công:', text);
-        });
+    // 2. QUẢN LÝ DỊCH VỤ (LOCAL STORAGE)
+    let products = JSON.parse(localStorage.getItem('myProducts')) || [
+      { id: 1, name: 'Quản lý Fanpage', price: '1.500.000đ', desc: 'Lên lịch đăng bài, tương tác khách hàng.' },
+      { id: 2, name: 'Thiết kế Landing Page', price: '2.500.000đ', desc: 'Tối ưu chuyển đổi, giao diện chuẩn SEO.' }
+    ];
+
+    function renderProducts() {
+      // Render ra trang chủ
+      const list = document.getElementById('service-list');
+      list.innerHTML = products.map(p => `
+        <div class="glass-panel rounded-3xl p-6 relative overflow-hidden group">
+          <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl group-hover:bg-blue-400/20 transition"></div>
+          <h4 class="text-xl font-bold mb-1">${p.name}</h4>
+          <p class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-2">${p.price}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-300">${p.desc}</p>
+          <button class="mt-4 glass-btn px-4 py-2 rounded-xl text-sm font-semibold w-full">Mua ngay</button>
+        </div>
+      `).join('');
+
+      // Render ra Admin
+      const adminList = document.getElementById('admin-product-list');
+      adminList.innerHTML = products.map(p => `
+        <div class="flex justify-between items-center bg-white/30 dark:bg-black/20 p-3 rounded-xl border border-white/20">
+          <div class="overflow-hidden pr-2">
+             <p class="font-bold text-sm truncate">${p.name}</p>
+             <p class="text-xs text-green-500">${p.price}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="editProduct(${p.id})" class="p-2 bg-yellow-100 text-yellow-600 rounded-lg"><i data-lucide="edit" class="w-4 h-4"></i></button>
+            <button onclick="deleteProduct(${p.id})" class="p-2 bg-red-100 text-red-600 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Xử lý Form
+    document.getElementById('productForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('productId').value;
+      const name = document.getElementById('pName').value;
+      const price = document.getElementById('pPrice').value;
+      const desc = document.getElementById('pDesc').value;
+
+      if (id) {
+        // Sửa
+        const index = products.findIndex(p => p.id == id);
+        products[index] = { ...products[index], name, price, desc };
       } else {
-        prompt('Copy thủ công:', text);
+        // Thêm mới
+        products.push({ id: Date.now(), name, price, desc });
+      }
+      
+      localStorage.setItem('myProducts', JSON.stringify(products));
+      renderProducts();
+      e.target.reset();
+      document.getElementById('productId').value = '';
+      alert('Đã lưu thành công!');
+    });
+
+    function deleteProduct(id) {
+      if(confirm('Bạn có chắc muốn xóa dịch vụ này?')) {
+        products = products.filter(p => p.id !== id);
+        localStorage.setItem('myProducts', JSON.stringify(products));
+        renderProducts();
       }
     }
 
-    const root = document.documentElement;
-    try {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        root.classList.add('dark');
-      }
-    } catch (e) {}
+    function editProduct(id) {
+      const p = products.find(p => p.id === id);
+      document.getElementById('productId').value = p.id;
+      document.getElementById('pName').value = p.name;
+      document.getElementById('pPrice').value = p.price;
+      document.getElementById('pDesc').value = p.desc;
+      window.scrollTo(0, 0); // Cuộn lên đầu modal
+    }
 
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      root.classList.toggle('dark');
-      try {
-        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
-      } catch (e) {}
+    // 3. CHỨC NĂNG ADMIN (Bấm logo 5 lần)
+    let clickCount = 0;
+    document.getElementById('adminTrigger').addEventListener('click', () => {
+      clickCount++;
+      if (clickCount >= 5) {
+        document.getElementById('adminPanel').classList.replace('hidden-modal', 'show-modal');
+        clickCount = 0;
+      }
+      setTimeout(() => { clickCount = 0; }, 2000); // Reset sau 2s
     });
+
+    function toggleAdmin() {
+      document.getElementById('adminPanel').classList.replace('show-modal', 'hidden-modal');
+    }
+
+    // 4. CÁC HÀM GỌI API TIỆN ÍCH
+    
+    // Check IP
+    async function checkIP() {
+      const el = document.getElementById('ip-result');
+      el.innerText = "Đang lấy...";
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        el.innerText = data.ip;
+      } catch (error) {
+        el.innerText = "Lỗi mạng!";
+      }
+    }
+
+    // Thời tiết (Mặc định Hà Nội)
+    async function getWeather() {
+      const el = document.getElementById('weather-result');
+      el.innerText = "Đang lấy...";
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.0285&longitude=105.8542&current_weather=true');
+        const data = await res.json();
+        const temp = data.current_weather.temperature;
+        el.innerText = `${temp}°C`;
+      } catch (error) {
+        el.innerText = "Lỗi API!";
+      }
+    }
+
+    // Đo tốc độ mạng (Test tải file 1MB từ Cloudflare)
+    async function testSpeed() {
+      const el = document.getElementById('speed-result');
+      el.innerText = "Đang test...";
+      const startTime = new Date().getTime();
+      const image = new Image();
+      // Dùng ảnh 1MB từ Cloudflare
+      image.src = "https://speed.cloudflare.com/__down?bytes=1000000&t=" + startTime;
+      
+      image.onload = () => {
+        const endTime = new Date().getTime();
+        const duration = (endTime - startTime) / 1000; // giây
+        const speedMbps = (1 * 8 / duration).toFixed(2); // 1MB = 8 Megabits
+        el.innerText = `${speedMbps} Mbps`;
+      };
+      
+      image.onerror = () => {
+        el.innerText = "Lỗi test!";
+      };
+    }
+
+    // Khởi chạy render lần đầu
+    renderProducts();
   </script>
 </body>
 </html>

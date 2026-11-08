@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyễn Lê Thảo | Profile Cá Nhân</title>
+  <meta name="description" content="Trang profile cá nhân Nguyễn Lê Thảo - Marketing & Content Creator">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            primary: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+              300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+              600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+            },
+            dark: { bg: '#0f172a', card: '#1e293b', text: '#e2e8f0' },
+          },
+          boxShadow: {
+            soft: '0 4px 20px rgba(0,0,0,0.06)',
+            glow: '0 0 20px rgba(59, 130, 246, 0.35)',
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .card { transition: transform .3s ease, box-shadow .3s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 0 20px rgba(59,130,246,0.25); }
+    .icon-badge { display:flex; align-items:center; justify-content:center; width:3rem; height:3rem; border-radius:9999px; flex-shrink:0; }
+  </style>
+</head>
+
+<body class="bg-primary-50 text-gray-800 dark:bg-dark-bg dark:text-dark-text transition-colors duration-300">
+
+  <header class="sticky top-0 z-50 border-b border-primary-100 bg-primary-50/80 backdrop-blur-md dark:border-primary-900 dark:bg-dark-bg/80">
+    <div class="container mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+      <h1 class="text-xl font-bold text-primary-700 dark:text-primary-300">
+        Thảo<span class="text-primary-500">.Profile</span>
+      </h1>
+      <button id="themeToggle" aria-label="Chuyển chế độ Sáng/Tối"
+        class="rounded-full p-2 text-gray-500 hover:bg-primary-100 dark:text-gray-400 dark:hover:bg-dark-card transition">
+        <i data-lucide="sun" class="h-5 w-5 block dark:hidden"></i>
+        <i data-lucide="moon" class="h-5 w-5 hidden dark:block"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="container mx-auto max-w-5xl px-4 py-12">
+
+    <section class="mb-20 text-center">
+      <div class="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-primary-400 to-primary-600 text-5xl font-bold text-white shadow-glow">
+        T
+      </div>
+      <h2 class="mb-2 text-4xl font-bold text-gray-900 dark:text-white">Nguyễn Lê Thảo</h2>
+      <p class="mb-6 text-lg text-gray-600 dark:text-gray-300">Chuyên viên Marketing & Phát triển nội dung số</p>
+      <p class="mx-auto mb-8 max-w-2xl text-gray-500 dark:text-gray-400">
+        Chào mừng bạn đến với không gian cá nhân của mình. Nơi chia sẻ về các dự án, dịch vụ và những công cụ hữu ích giúp công việc trở nên dễ dàng hơn.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#contact" class="inline-flex items-center rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-3 font-semibold text-white shadow-soft transition-all duration-300 hover:from-primary-600 hover:to-primary-700 hover:shadow-glow active:scale-95">
+          <i data-lucide="mail" class="mr-2 h-5 w-5"></i> Liên hệ ngay
+        </a>
+        <a href="#services" class="inline-flex items-center rounded-xl border border-primary-200 bg-white px-6 py-3 font-semibold text-primary-600 shadow-soft transition-all duration-300 hover:bg-primary-50 hover:shadow-glow dark:border-primary-700 dark:bg-dark-card dark:text-primary-300">
+          <i data-lucide="briefcase" class="mr-2 h-5 w-5"></i> Xem dịch vụ
+        </a>
+      </div>
+    </section>
+
+    <section id="services" class="mb-20 scroll-mt-20">
+      <div class="mb-12 text-center">
+        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Sản phẩm & Dịch vụ</h3>
+        <p class="text-gray-600 dark:text-gray-400">Những giải pháp giúp bạn phát triển thương hiệu và tối ưu công việc.</p>
+      </div>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
+            <i data-lucide="sparkles" class="h-6 w-6"></i>
+          </div>
+          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Quản lý Fanpage</h4>
+          <p class="text-gray-600 dark:text-gray-400">Xây dựng nội dung, lên lịch đăng bài và tương tác với khách hàng để tăng độ phủ thương hiệu.</p>
+        </div>
+        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
+            <i data-lucide="layout-template" class="h-6 w-6"></i>
+          </div>
+          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Thiết kế Landing Page</h4>
+          <p class="text-gray-600 dark:text-gray-400">Tạo các trang đích chuyên nghiệp, tối ưu chuyển đổi cho chiến dịch quảng cáo của bạn.</p>
+        </div>
+        <div class="card rounded-2xl bg-white p-6 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge mb-4 bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-300">
+            <i data-lucide="zap" class="h-6 w-6"></i>
+          </div>
+          <h4 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">Tư vấn Chiến lược Nội dung</h4>
+          <p class="text-gray-600 dark:text-gray-400">Phân tích và xây dựng kế hoạch nội dung dài hạn, phù hợp với mục tiêu kinh doanh.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="utilities" class="mb-20 scroll-mt-20">
+      <div class="mb-12 text-center">
+        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Công cụ Tiện ích</h3>
+        <p class="text-gray-600 dark:text-gray-400">Các công cụ nhỏ gọn, hữu ích được tích hợp ngay trên trang.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
+          <i data-lucide="globe" class="mb-3 h-8 w-8 text-gray-400"></i>
+          <span class="font-medium text-gray-700 dark:text-gray-300">Check IP</span>
+          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
+        </div>
+        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
+          <i data-lucide="cloud-sun" class="mb-3 h-8 w-8 text-gray-400"></i>
+          <span class="font-medium text-gray-700 dark:text-gray-300">Dự báo Thời tiết</span>
+          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
+        </div>
+        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
+          <i data-lucide="shield-check" class="mb-3 h-8 w-8 text-gray-400"></i>
+          <span class="font-medium text-gray-700 dark:text-gray-300">Mã 2FA</span>
+          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
+        </div>
+        <div class="card flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-soft opacity-70 dark:bg-dark-card">
+          <i data-lucide="fuel" class="mb-3 h-8 w-8 text-gray-400"></i>
+          <span class="font-medium text-gray-700 dark:text-gray-300">Giá Xăng Dầu</span>
+          <span class="mt-1 text-xs text-gray-400">(Sắp ra mắt)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-mt-20">
+      <div class="mb-12 text-center">
+        <h3 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">Kết nối với mình</h3>
+        <p class="text-gray-600 dark:text-gray-400">Bạn có dự án cần hợp tác? Hãy liên hệ qua các kênh dưới đây.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <a href="https://facebook.com/nguyenlethaoitprofile08" target="_blank" rel="noopener"
+          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <p class="font-semibold text-gray-900 dark:text-white">Facebook</p>
+            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@nguyenlethaoitprofile08</p>
+          </div>
+        </a>
+
+        <a href="https://t.me/usertaiwan8686" target="_blank" rel="noopener"
+          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400">
+            <i data-lucide="send" class="h-5 w-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="font-semibold text-gray-900 dark:text-white">Telegram</p>
+            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@usertaiwan8686</p>
+          </div>
+        </a>
+
+        <a href="mailto:nguyenlethao.profile08@gmail.com"
+          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge bg-red-100 text-red-600 dark:bg-red-900/50 dark:text-red-400">
+            <i data-lucide="mail" class="h-5 w-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="font-semibold text-gray-900 dark:text-white">Email</p>
+            <p class="truncate text-sm text-gray-500 dark:text-gray-400">nguyenlethao.profile08@gmail.com</p>
+          </div>
+        </a>
+
+        <a href="tel:+84898666218"
+          class="card flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft dark:bg-dark-card">
+          <div class="icon-badge bg-green-100 text-green-600 dark:bg-green-900/50 dark:text-green-400">
+            <i data-lucide="phone" class="h-5 w-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="font-semibold text-gray-900 dark:text-white">Zalo / Call</p>
+            <p class="truncate text-sm text-gray-500 dark:text-gray-400">+84.898.666.218</p>
+          </div>
+        </a>
+
+        <button onclick="copyDiscord()"
+          class="card flex w-full items-center gap-4 rounded-2xl bg-white p-4 text-left shadow-soft dark:bg-dark-card">
+          <div class="icon-badge bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400">
+            <i data-lucide="message-circle" class="h-5 w-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="font-semibold text-gray-900 dark:text-white">Discord</p>
+            <p class="truncate text-sm text-gray-500 dark:text-gray-400">@nguyenlethaouser08 · nhấn để copy</p>
+          </div>
+        </button>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-primary-100 py-8 text-center text-sm text-gray-500 dark:border-primary-900 dark:text-gray-400">
+    <p>© <span id="year"></span> Nguyễn Lê Thảo. All rights reserved.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function copyDiscord() {
+      const text = '@nguyenlethaouser08';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Đã copy Discord: ' + text);
+        }).catch(() => {
+          prompt('Copy thủ công:', text);
+        });
+      } else {
+        prompt('Copy thủ công:', text);
+      }
+    }
+
+    const root = document.documentElement;
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+      }
+    } catch (e) {}
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      root.classList.toggle('dark');
+      try {
+        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>
